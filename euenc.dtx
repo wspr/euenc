@@ -227,6 +227,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 %<*lmscript>
 % \fi
 %    \begin{macrocode}
+mkdir -p lm
+
 sed -E -f sed-eu1lmr.sed   `kpsewhich t1lmr.fd`   > lm/eu1lmr.fd
 sed -E -f sed-eu1lmdh.sed  `kpsewhich t1lmdh.fd`  > lm/eu1lmdh.fd
 sed -E -f sed-eu1lmss.sed  `kpsewhich t1lmss.fd`  > lm/eu1lmss.fd
