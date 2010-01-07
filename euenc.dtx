@@ -14,7 +14,7 @@
 % This work consists of the file  euenc.dtx and various derived files.
 %
 %<*dtxinfo>
-\ProvidesFile{euenc.dtx}[2008/05/14 v0.1e Experimental unicode font encodings]
+\ProvidesFile{euenc.dtx}[2010/01/07 v0.2 Experimental unicode font encodings]
 %</dtxinfo>
 %
 %<*internalbatchfile>
@@ -91,7 +91,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % \begin{abstract} 
 % This file documents some experimental unicode font encodings, initially
-% used for \XeTeX. Includes Latin Modern font definitions for version 1.106 of those fonts.
+% used for \XeTeX. Includes Latin Modern font definitions for version 1.6 of those fonts.
 % \end{abstract}
 %
 % \tableofcontents
@@ -135,10 +135,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 % unchanged into the future. This is an unfortunate fact that extensions to \TeX\
 % that deal with unicode (>16 bit fonts) are still many and varied (by this time next
 % year, there will be at least four\footnote{\XeTeX, Lua\TeX, Omega/Aleph, \ExTeX,
-% if I've counted correctly}). \XeTeX\ is the only one with active macro
-% development at the present time to the best of my knowledge. It thus serves
-% as a testbed for new ideas; furthermore, I'm learning all of this stuff too so
-% it's possible that I'll make conceptual mistakes that require changes later on.
+% if I've counted correctly}).
 %
 % \section{The \EU1 encoding}
 %
@@ -180,6 +177,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % \section{The \EU2 encoding}
 %
+% The \EU2 encoding is to be used with Lua\TeX, it is essentially the same as
+% \EU1, the actual difference is in the font definition files.
 % \iffalse
 %<*eu2>
 % \fi
@@ -199,12 +198,12 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % \section{The Latin Modern OpenType fonts}
 %
-% Version 0.1c/d of \pkg{euenc} supports version~1.106 of the LM fonts, released in February 2008.
+% Version 0.2 of \pkg{euenc} supports version~1.6 of the LM fonts, released in October 2009.
 %
 % \subsection{Conversion scripts}
 % The |.fd| files are converted from the \enc{T1} encoding
 % with the following shell script. In order to generate
-% the Latin Modern \EU1 encoding font definitions, execute the following commands:
+% the Latin Modern \EU1 and \EU2 encoding font definitions, execute the following commands:
 % \begin{verbatim}
 %   latex euenc.ins
 %   sh convert-lmfd.sh
@@ -212,7 +211,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 % The sources that allow this generation are shown following.
 %
 % \subsubsection{Encoding conversion shell script}
-% Make sure the \texttt{lm/} directory exists before running this script.
+%
 % \iffalse
 %<*lmscript>
 % \fi
@@ -231,18 +230,19 @@ sed -E -f sed-eu2lm.sed `kpsewhich t1lmss.fd`  > lm/eu2lmss.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmssq.fd` > lm/eu2lmssq.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmvtt.fd` > lm/eu2lmvtt.fd
 
-sed -E -f sed-eu1lm.sed -e 's/:mapping=tex-text//g'            `kpsewhich t1lmtt.fd` > lm/eu1lmtt.fd
-sed -E -f sed-eu2lm.sed -e 's/:\+tlig;\+trep;\+liga;\+rlig//g' `kpsewhich t1lmtt.fd` > lm/eu2lmtt.fd
+sed -E -f sed-eu1lm.sed -e 's/:mapping=tex-text//g' \
+    `kpsewhich t1lmtt.fd` > lm/eu1lmtt.fd
+sed -E -f sed-eu2lm.sed -e 's/:\+tlig;\+trep;\+liga;\+rlig//g' \
+    `kpsewhich t1lmtt.fd` > lm/eu2lmtt.fd
 %    \end{macrocode}
 % \iffalse
 %</lmscript>
 % \fi
 %
 % \subsubsection{Encoding conversion \texttt{sed} scripts}
-% The shell script above clearly requires the following quickly assembled |sed| scripts.
-% No doubt they could be reduced to a single script with enough motivation. For now, they work.
+% The shell script above clearly requires the following |sed| scripts.
 %
-% \paragraph{Roman}
+% \paragraph{\EU1}
 % \iffalse
 %<*eu1sedlm>
 % \fi
@@ -312,11 +312,7 @@ s/(>.[ ]*)(lm[a-z0-9\-]+)/\1"[\2]:mapping=tex-text"/g
 %</eu1sedlm>
 % \fi
 %
-% \subsubsection{Encoding conversion \texttt{sed} scripts}
-% The shell script above clearly requires the following quickly assembled |sed| scripts.
-% No doubt they could be reduced to a single script with enough motivation. For now, they work.
-%
-% \paragraph{Roman}
+% \paragraph{\EU2}
 % \iffalse
 %<*eu2sedlm>
 % \fi
