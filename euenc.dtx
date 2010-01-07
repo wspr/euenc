@@ -396,11 +396,23 @@ s/(>.[ ]*)(lm[a-z0-9\-]+)/\1"[\2]:+tlig;+trep;+liga;+rlig"/g
 \DefineShortVerb{\|}
                
 \usepackage{slantsc}
-\usepackage[EU1]{fontenc}
+\usepackage{ifluatex}
+\usepackage{ifxetex}
+\ifxetex
+  \def\EU{EU1}
+\else
+  \ifluatex
+    \usepackage{luaotfload}
+    \def\EU{EU2}
+  \else
+    \def\EU{T1}
+  \fi
+\fi
+\usepackage[\EU]{fontenc}
 \usepackage{lmodern}
 \begin{document}
 
-\title{Testing the Latin Modern \texttt{EU1} encoding}
+\title{Testing the Latin Modern \texttt{\EU} encoding}
 \author{Will Robertson}
 \maketitle
 \thispagestyle{empty}
