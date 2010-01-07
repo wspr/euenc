@@ -229,8 +229,8 @@ sed -E -f sed-eu2lm.sed `kpsewhich t1lmss.fd`  > lm/eu2lmss.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmssq.fd` > lm/eu2lmssq.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmvtt.fd` > lm/eu2lmvtt.fd
 
-sed -E -f sed-eu1lm.sed -e 's/:mapping=tex-text//g' \
-    `kpsewhich t1lmtt.fd` > lm/eu1lmtt.fd
+sed -E -f sed-eu1lm.sed -e \
+    's/:mapping=tex-text//g' `kpsewhich t1lmtt.fd` > lm/eu1lmtt.fd
 sed -E -f sed-eu2lm.sed -e \
     's/:mode=node;script=latn;.ccmp;.locl;.mark;.mkmk;.kern;.liga;.clig;.trep;.tlig;//g' \
     `kpsewhich t1lmtt.fd` > lm/eu2lmtt.fd
@@ -591,7 +591,6 @@ Will Robertson
   {\endlist}
 
 \usepackage{booktabs,calc,color,fancyvrb,graphicx,ifthen,refstyle,url,varioref}
-%%\usepackage{fontspec,xltxtra}
 \usepackage{metalogo}
   
 \definecolor{niceblue}{rgb}{0.4,0.6,1.000}
@@ -647,20 +646,7 @@ Will Robertson
 \def\ie{\latin{i.e.}}
 \def\etc{\@ifnextchar.{\latin{etc}}{\latin{etc.}\@}}
 
-%% LOGOS, tuned for Palatino:
-%%\TeX@logo@spacing{-0.12em}{-0.12em}%
-%%  {0.5ex}{-0.3em}{-0.12em}{-0.1em}
-
 \def\MacOSX{Mac~OS~X}
-
-%% fontspec declarations:
-%%\setromanfont[Mapping=tex-text]{FPL Neu}
-%%\defaultfontfeatures{Scale=MatchLowercase}
-%%\setsansfont[Mapping=tex-text,
-%%             BoldFont={Skia},
-%%             BoldFeatures={Weight=1.7}]{Skia}
-%%\setmonofont{Osaka-Mono}
-%%\defaultfontfeatures{Mapping=tex-text}
 
 \DeclareRobustCommand\ExTeX{\textrm{\relax
  \ensuremath{\textstyle\varepsilon_{\kern-0.15em\mathcal{X}}}\relax
@@ -669,8 +655,6 @@ Will Robertson
 \def\EU#1{\enc{EU#1}}
 \def\EUx{\enc{EU$x$}} 
 
-%% (La)TeX font-related declarations:
-%%\linespread{1.05}      % FPL Neu needs more space between lines
 \frenchspacing         % Remove ugly extra space after punctuation
 
 %    \end{macrocode}
