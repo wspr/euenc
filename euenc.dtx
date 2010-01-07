@@ -223,15 +223,16 @@ sed -E -f sed-eu1lm.sed `kpsewhich t1lmr.fd`   > lm/eu1lmr.fd
 sed -E -f sed-eu1lm.sed `kpsewhich t1lmdh.fd`  > lm/eu1lmdh.fd
 sed -E -f sed-eu1lm.sed `kpsewhich t1lmss.fd`  > lm/eu1lmss.fd
 sed -E -f sed-eu1lm.sed `kpsewhich t1lmssq.fd` > lm/eu1lmssq.fd
-sed -E -f sed-eu1lm.sed `kpsewhich t1lmtt.fd`  > lm/eu1lmtt.fd
 sed -E -f sed-eu1lm.sed `kpsewhich t1lmvtt.fd` > lm/eu1lmvtt.fd
 
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmr.fd`   > lm/eu2lmr.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmdh.fd`  > lm/eu2lmdh.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmss.fd`  > lm/eu2lmss.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmssq.fd` > lm/eu2lmssq.fd
-sed -E -f sed-eu2lm.sed `kpsewhich t1lmtt.fd`  > lm/eu2lmtt.fd
 sed -E -f sed-eu2lm.sed `kpsewhich t1lmvtt.fd` > lm/eu2lmvtt.fd
+
+sed -E -f sed-eu1lm.sed -e 's/:mapping=tex-text//g'            `kpsewhich t1lmtt.fd` > lm/eu1lmtt.fd
+sed -E -f sed-eu2lm.sed -e 's/:\+tlig;\+trep;\+liga;\+rlig//g' `kpsewhich t1lmtt.fd` > lm/eu2lmtt.fd
 %    \end{macrocode}
 % \iffalse
 %</lmscript>
