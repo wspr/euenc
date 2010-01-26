@@ -30,7 +30,7 @@ INSTALLATION
 CTAN contains the necessary files to install for this package:
   - eu1enc.def
   - eu2enc.def
-  - lm/eu*.fd (* is a wild card: twelve files in all)
+  - eu*.fd (* is a wild card: twelve files in all)
 These should be placed in $TEXMF/tex/latex/euenc .
 
 ______________
