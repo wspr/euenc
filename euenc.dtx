@@ -213,23 +213,21 @@ This work consists of the file  \jobname.dtx and various derived files.
 %<*lmscript>
 % \fi
 %    \begin{macrocode}
-mkdir -p lm
+sed -f sed-eu1lm.sed `kpsewhich t1lmr.fd`   > eu1lmr.fd
+sed -f sed-eu1lm.sed `kpsewhich t1lmdh.fd`  > eu1lmdh.fd
+sed -f sed-eu1lm.sed `kpsewhich t1lmss.fd`  > eu1lmss.fd
+sed -f sed-eu1lm.sed `kpsewhich t1lmssq.fd` > eu1lmssq.fd
+sed -f sed-eu1lm.sed `kpsewhich t1lmvtt.fd` > eu1lmvtt.fd
 
-sed -E -f sed-eu1lm.sed `kpsewhich t1lmr.fd`   > lm/eu1lmr.fd
-sed -E -f sed-eu1lm.sed `kpsewhich t1lmdh.fd`  > lm/eu1lmdh.fd
-sed -E -f sed-eu1lm.sed `kpsewhich t1lmss.fd`  > lm/eu1lmss.fd
-sed -E -f sed-eu1lm.sed `kpsewhich t1lmssq.fd` > lm/eu1lmssq.fd
-sed -E -f sed-eu1lm.sed `kpsewhich t1lmvtt.fd` > lm/eu1lmvtt.fd
+sed -f sed-eu2lm.sed `kpsewhich t1lmr.fd`   > eu2lmr.fd
+sed -f sed-eu2lm.sed `kpsewhich t1lmdh.fd`  > eu2lmdh.fd
+sed -f sed-eu2lm.sed `kpsewhich t1lmss.fd`  > eu2lmss.fd
+sed -f sed-eu2lm.sed `kpsewhich t1lmssq.fd` > eu2lmssq.fd
+sed -f sed-eu2lm.sed `kpsewhich t1lmvtt.fd` > eu2lmvtt.fd
 
-sed -E -f sed-eu2lm.sed `kpsewhich t1lmr.fd`   > lm/eu2lmr.fd
-sed -E -f sed-eu2lm.sed `kpsewhich t1lmdh.fd`  > lm/eu2lmdh.fd
-sed -E -f sed-eu2lm.sed `kpsewhich t1lmss.fd`  > lm/eu2lmss.fd
-sed -E -f sed-eu2lm.sed `kpsewhich t1lmssq.fd` > lm/eu2lmssq.fd
-sed -E -f sed-eu2lm.sed `kpsewhich t1lmvtt.fd` > lm/eu2lmvtt.fd
-
-sed -E -f sed-eu1lm.sed -e \
+sed -f sed-eu1lm.sed -e \
     's/:mapping=tex-text//g' `kpsewhich t1lmtt.fd` > lm/eu1lmtt.fd
-sed -E -f sed-eu2lm.sed -e \
+sed -f sed-eu2lm.sed -e \
     's/:mode=node;script=latn;.ccmp;.locl;.mark;.mkmk;.kern;.liga;.clig;.trep;.tlig;//g' \
     `kpsewhich t1lmtt.fd` > lm/eu2lmtt.fd
 %    \end{macrocode}
@@ -240,142 +238,78 @@ sed -E -f sed-eu2lm.sed -e \
 % \subsubsection{Encoding conversion \texttt{sed} scripts}
 % The shell script above clearly requires the following |sed| scripts.
 %
-% \paragraph{\EU1}
+% \paragraph{Sed scripts}
 % \iffalse
-%<*eu1sedlm>
+%<*eu1sedlm,eu2sedlm>
 % \fi
 %    \begin{macrocode}
 /^%.*/d
-s/\{T1\}/{EU1}/g
-s/t1lm/eu1lm/g
+%<eu1sedlm>s/{T1}/{EU1}/g
+%<eu1sedlm>s/t1lm/eu1lm/g
+%<eu2sedlm>s/{T1}/{EU2}/g
+%<eu2sedlm>s/t1lm/eu2lm/g
 
-s/ec-lmri([0-9]*)/lmroman\1-italic/g
-s/ec-lmro([0-9]*)/lmromanslant\1-regular/g
-s/ec-lmr([0-9]*)/lmroman\1-regular/g
-s/ec-lmcsco([0-9]*)/lmromancaps\1-oblique/g
-s/ec-lmcsc([0-9]*)/lmromancaps\1-regular/g
+s/ec-lmri\([0-9]*\)/lmroman\1-italic/g
+s/ec-lmro\([0-9]*\)/lmromanslant\1-regular/g
+s/ec-lmr\([0-9]*\)/lmroman\1-regular/g
+s/ec-lmcsco\([0-9]*\)/lmromancaps\1-oblique/g
+s/ec-lmcsc\([0-9]*\)/lmromancaps\1-regular/g
 
-s/ec-lmbxo([0-9]*)/lmromanslant\1-bold/g
-s/ec-lmbxi([0-9]*)/lmroman\1-bolditalic/g
-s/ec-lmbx([0-9]*)/lmroman\1-bold/g
-s/ec-lmbo([0-9]*)/lmromandemi\1-oblique/g
-s/ec-lmb([0-9]*)/lmromandemi\1-regular/g
+s/ec-lmbxo\([0-9]*\)/lmromanslant\1-bold/g
+s/ec-lmbxi\([0-9]*\)/lmroman\1-bolditalic/g
+s/ec-lmbx\([0-9]*\)/lmroman\1-bold/g
+s/ec-lmbo\([0-9]*\)/lmromandemi\1-oblique/g
+s/ec-lmb\([0-9]*\)/lmromandemi\1-regular/g
 
-s/ec-lmdunh([0-9]*)/lmromandunh\1-regular/g
-s/ec-lmduno([0-9]*)/lmromandunh\1-oblique/g
+s/ec-lmdunh\([0-9]*\)/lmromandunh\1-regular/g
+s/ec-lmduno\([0-9]*\)/lmromandunh\1-oblique/g
 
-s/ec-lmss([0-9]+)/lmsans\1-regular/g
-s/ec-lmsso([0-9]+)/lmsans\1-oblique/g
+s/ec-lmss\([0-9]+\)/lmsans\1-regular/g
+s/ec-lmsso\([0-9]+\)/lmsans\1-oblique/g
 
-s/ec-lmssdc([0-9]+)/lmsansdemicond\1-regular/g
-s/ec-lmssdo([0-9]+)/lmsansdemicond\1-oblique/g
+s/ec-lmssdc\([0-9]+\)/lmsansdemicond\1-regular/g
+s/ec-lmssdo\([0-9]+\)/lmsansdemicond\1-oblique/g
 
-s/ec-lmssbx([0-9]+)/lmsans\1-bold/g
-s/ec-lmssbo([0-9]+)/lmsans\1-boldoblique/g
+s/ec-lmssbx\([0-9]+\)/lmsans\1-bold/g
+s/ec-lmssbo\([0-9]+\)/lmsans\1-boldoblique/g
 
-s/ec-lmssq([0-9]+)/lmsansquot\1-regular/g
-s/ec-lmssqo([0-9]+)/lmsansquot\1-oblique/g
-s/ec-lmssqbx([0-9]+)/lmsansquot\1-bold/g
-s/ec-lmssqbo([0-9]+)/lmsansquot\1-boldoblique/g
+s/ec-lmssq\([0-9]+\)/lmsansquot\1-regular/g
+s/ec-lmssqo\([0-9]+\)/lmsansquot\1-oblique/g
+s/ec-lmssqbx\([0-9]+\)/lmsansquot\1-bold/g
+s/ec-lmssqbo\([0-9]+\)/lmsansquot\1-boldoblique/g
 
-s/ec-lmtt([0-9]+)/lmmono\1-regular/g
-s/ec-lmtto([0-9]+)/lmmonoslant\1-regular/g
-s/ec-lmtti([0-9]+)/lmmono\1-italic/g
+s/ec-lmtt\([0-9]+\)/lmmono\1-regular/g
+s/ec-lmtto\([0-9]+\)/lmmonoslant\1-regular/g
+s/ec-lmtti\([0-9]+\)/lmmono\1-italic/g
 
-s/ec-lmtcsc([0-9]+)/lmmonocaps\1-regular/g
-s/ec-lmtcso([0-9]+)/lmmonocaps\1-oblique/g
+s/ec-lmtcsc\([0-9]+\)/lmmonocaps\1-regular/g
+s/ec-lmtcso\([0-9]+\)/lmmonocaps\1-oblique/g
 
-s/ec-lmtl([0-9]+)/lmmonolt\1-regular/g
-s/ec-lmtlo([0-9]+)/lmmonolt\1-oblique/g
-s/ec-lmtk([0-9]+)/lmmonolt\1-bold/g
-s/ec-lmtko([0-9]+)/lmmonolt\1-boldoblique/g
+s/ec-lmtl\([0-9]+\)/lmmonolt\1-regular/g
+s/ec-lmtlo\([0-9]+\)/lmmonolt\1-oblique/g
+s/ec-lmtk\([0-9]+\)/lmmonolt\1-bold/g
+s/ec-lmtko\([0-9]+\)/lmmonolt\1-boldoblique/g
 
-s/ec-lmtlc([0-9]+)/lmmonoltcond\1-regular/g
-s/ec-lmtlco([0-9]+)/lmmonoltcond\1-oblique/g
+s/ec-lmtlc\([0-9]+\)/lmmonoltcond\1-regular/g
+s/ec-lmtlco\([0-9]+\)/lmmonoltcond\1-oblique/g
 
-s/ec-lmvtt([0-9]+)/lmmonoprop\1-regular/g
-s/ec-lmvtto([0-9]+)/lmmonoprop\1-oblique/g
+s/ec-lmvtt\([0-9]+\)/lmmonoprop\1-regular/g
+s/ec-lmvtto\([0-9]+\)/lmmonoprop\1-oblique/g
 
-s/ec-lmvtl([0-9]+)/lmmonoproplt\1-regular/g
-s/ec-lmvtlo([0-9]+)/lmmonoproplt\1-oblique/g
-s/ec-lmvtk([0-9]+)/lmmonoproplt\1-bold/g
-s/ec-lmvtko([0-9]+)/lmmonoproplt\1-boldoblique/g
+s/ec-lmvtl\([0-9]+\)/lmmonoproplt\1-regular/g
+s/ec-lmvtlo\([0-9]+\)/lmmonoproplt\1-oblique/g
+s/ec-lmvtk\([0-9]+\)/lmmonoproplt\1-bold/g
+s/ec-lmvtko\([0-9]+\)/lmmonoproplt\1-boldoblique/g
 
-s/(>.[ ]*)(lm[a-z0-9\-]+)/\1"[\2]:mapping=tex-text"/g
+%<eu1sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]\+\)/\1"[\2]:mapping=tex-text"/g
+%<eu2sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]+\)/\1file:\2:mode=node;script=latn;+ccmp;+locl;+mark;+mkmk;+kern;+liga;+clig;+trep;+tlig;/g
 %    \end{macrocode}
 % \changes{v0.1}{2007/01/18}{`ssdc' and `ssdo' were switched with the upright for some reason.}
 % \changes{v0.1d}{2008/03/08}{Missed typewriter italic somehow.}
 % \changes{v0.1e}{2008/05/14}{Oblique mono was wrong (?!).}
 % \changes{v0.2}{2010/01/07}{Merged scripts together.}
 % \iffalse
-%</eu1sedlm>
-% \fi
-%
-% \paragraph{\EU2}
-% \iffalse
-%<*eu2sedlm>
-% \fi
-%    \begin{macrocode}
-/^%.*/d
-s/\{T1\}/{EU2}/g
-s/t1lm/eu2lm/g
-
-s/ec-lmri([0-9]*)/lmroman\1-italic/g
-s/ec-lmro([0-9]*)/lmromanslant\1-regular/g
-s/ec-lmr([0-9]*)/lmroman\1-regular/g
-s/ec-lmcsco([0-9]*)/lmromancaps\1-oblique/g
-s/ec-lmcsc([0-9]*)/lmromancaps\1-regular/g
-
-s/ec-lmbxo([0-9]*)/lmromanslant\1-bold/g
-s/ec-lmbxi([0-9]*)/lmroman\1-bolditalic/g
-s/ec-lmbx([0-9]*)/lmroman\1-bold/g
-s/ec-lmbo([0-9]*)/lmromandemi\1-oblique/g
-s/ec-lmb([0-9]*)/lmromandemi\1-regular/g
-
-s/ec-lmdunh([0-9]*)/lmromandunh\1-regular/g
-s/ec-lmduno([0-9]*)/lmromandunh\1-oblique/g
-
-s/ec-lmss([0-9]+)/lmsans\1-regular/g
-s/ec-lmsso([0-9]+)/lmsans\1-oblique/g
-
-s/ec-lmssdc([0-9]+)/lmsansdemicond\1-regular/g
-s/ec-lmssdo([0-9]+)/lmsansdemicond\1-oblique/g
-
-s/ec-lmssbx([0-9]+)/lmsans\1-bold/g
-s/ec-lmssbo([0-9]+)/lmsans\1-boldoblique/g
-
-s/ec-lmssq([0-9]+)/lmsansquot\1-regular/g
-s/ec-lmssqo([0-9]+)/lmsansquot\1-oblique/g
-s/ec-lmssqbx([0-9]+)/lmsansquot\1-bold/g
-s/ec-lmssqbo([0-9]+)/lmsansquot\1-boldoblique/g
-
-s/ec-lmtt([0-9]+)/lmmono\1-regular/g
-s/ec-lmtto([0-9]+)/lmmonoslant\1-regular/g
-s/ec-lmtti([0-9]+)/lmmono\1-italic/g
-
-s/ec-lmtcsc([0-9]+)/lmmonocaps\1-regular/g
-s/ec-lmtcso([0-9]+)/lmmonocaps\1-oblique/g
-
-s/ec-lmtl([0-9]+)/lmmonolt\1-regular/g
-s/ec-lmtlo([0-9]+)/lmmonolt\1-oblique/g
-s/ec-lmtk([0-9]+)/lmmonolt\1-bold/g
-s/ec-lmtko([0-9]+)/lmmonolt\1-boldoblique/g
-
-s/ec-lmtlc([0-9]+)/lmmonoltcond\1-regular/g
-s/ec-lmtlco([0-9]+)/lmmonoltcond\1-oblique/g
-
-s/ec-lmvtt([0-9]+)/lmmonoprop\1-regular/g
-s/ec-lmvtto([0-9]+)/lmmonoprop\1-oblique/g
-
-s/ec-lmvtl([0-9]+)/lmmonoproplt\1-regular/g
-s/ec-lmvtlo([0-9]+)/lmmonoproplt\1-oblique/g
-s/ec-lmvtk([0-9]+)/lmmonoproplt\1-bold/g
-s/ec-lmvtko([0-9]+)/lmmonoproplt\1-boldoblique/g
-
-s/(>.[ ]*)(lm[a-z0-9\-]+)/\1file:\2:mode=node;script=latn;+ccmp;+locl;+mark;+mkmk;+kern;+liga;+clig;+trep;+tlig;/g
-%    \end{macrocode}
-% \iffalse
-%</eu2sedlm>
+%</eu1sedlm,eu2sedlm>
 % \fi
 %
 % \subsection{Latin Modern test file}
