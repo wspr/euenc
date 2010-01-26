@@ -6,25 +6,18 @@ version 1.106, which was released in Feb 2008.
 
 This package is the first release of the first step towards offering a
 LaTeX font encoding based on unicode.  No macro support is offered (the
-encoding is just a placeholder for now) but an EU1 Latin Modern encoding is
-offered in order to access the OpenType versions of those fonts.
+encoding is just a placeholder for now) but the EU1 (for XeTeX) and EU2
+(for LuaTeX) Latin Modern encoding is offered in order to access the
+OpenType versions of those fonts.
 
-N.B. This will only work when xdvipdfmx is used as the output driver for
-XeTeX; xdv2pdf (Mac OS X only) does not support OpenType fonts that aren't
+N.B. For XeTeX, this will only work when xdvipdfmx is used as the output
+driver; xdv2pdf (Mac OS X only) does not support OpenType fonts that aren't
 installed in the system itself. As of XeTeX v0.997, xdv2pdf is no longer
 the default driver in Mac OS X.
 
 Usually you'll just want to use fontspec:
 \documentclass{article}
 \usepackage{fontspec}
-\begin{document}
-...
-\end{document}
-
-Example of use without fontspec:
-\documentclass{article}
-\usepackage[EU1]{fontenc}
-\usepackage{lmodern}
 \begin{document}
 ...
 \end{document}
@@ -36,12 +29,9 @@ INSTALLATION
 
 CTAN contains the necessary files to install for this package:
   - eu1enc.def
+  - eu2enc.def
   - lm/eu*.fd (* is a wild card: twelve files in all)
-These should be placed in $TEXMF/tex/xelatex/euenc .
-
-To generate these files from the euenc.dtx file, run
-`pdflatex --shell-scape eu1enc.dtx`. This will extract the eu1enc.def
-file and generate lm/eu*.fd files by executing `sh convert-lmfd.sh`.
+These should be placed in $TEXMF/tex/latex/euenc .
 
 ______________
 Will Robertson
