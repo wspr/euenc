@@ -8,13 +8,13 @@ DTX = $(NAME).dtx
 FDFILES = eu1lmdh.fd eu1lmr.fd eu1lmss.fd eu1lmssq.fd eu1lmtt.fd eu1lmvtt.fd\
 eu2lmdh.fd eu2lmr.fd eu2lmss.fd eu2lmssq.fd eu2lmtt.fd eu2lmvtt.fd
 COMPILED = $(DOC)
-UNPACKED = sed-eu1lmr.sed sed-eu2lmr.sed test-euxlm.ltx convert-lmfd.sh
+UNPACKED = test-euxlm.ltx
 GENERATED = $(COMPILED) $(UNPACKED) $(FDFILES)
 SOURCE = $(DTX) README Makefile
 
 # Files grouped by installation location
-RUNFILES = $(UNPACKED) $(FDFILES)
-DOCFILES = $(DOC) README
+RUNFILES = $(FDFILES)
+DOCFILES = $(DOC) README $(UNPACKED)
 SRCFILES = $(DTX) Makefile
 
 # The following definitions should be equivalent
