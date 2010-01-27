@@ -5,9 +5,9 @@ DOC = $(NAME).pdf
 DTX = $(NAME).dtx
 
 # Files grouped by generation mode
-COMPILED = $(DOC)
 FDFILES = eu1lmdh.fd eu1lmr.fd eu1lmss.fd eu1lmssq.fd eu1lmtt.fd eu1lmvtt.fd\
 eu2lmdh.fd eu2lmr.fd eu2lmss.fd eu2lmssq.fd eu2lmtt.fd eu2lmvtt.fd
+COMPILED = $(DOC)
 UNPACKED = sed-eu1lmr.sed sed-eu2lmr.sed test-euxlm.ltx convert-lmfd.sh
 GENERATED = $(COMPILED) $(UNPACKED) $(FDFILES)
 SOURCE = $(DTX) README Makefile
@@ -43,16 +43,16 @@ ctan: $(CTAN_ZIP)
 tds: $(TDS_ZIP)
 world: all ctan
 
-$(FDFILES): $(UNPACKED)
-	$(DO_SED)
-
 $(COMPILED): $(DTX)
 	$(DO_PDFLATEX)
 	$(DO_MAKEINDEX)
 	$(DO_PDFLATEX)
 	$(DO_PDFLATEX)
+	$(DO_SED)
 
 $(UNPACKED): $(COMPILED)
+
+$(FDFILES): $(COMPILED)
 
 $(CTAN_ZIP): $(SOURCE) $(COMPILED) $(TDS_ZIP)
 	@echo "Making $@ for CTAN upload."
