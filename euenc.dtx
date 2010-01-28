@@ -1,7 +1,5 @@
 % \iffalse meta-comment
 %
-%!TEX encoding = UTF-8 Unicode
-%
 % Copyright 2010 by Will Robertson <wspr81@gmail.com>
 % 
 % Distributable under the LaTeX Project Public License,
@@ -14,7 +12,7 @@
 % This work consists of the file  euenc.dtx and various derived files.
 %
 %<*dtxinfo>
-\ProvidesFile{euenc.dtx}[2010/01/07 v0.2 Experimental unicode font encodings]
+\ProvidesFile{euenc.dtx}[2010/01/28 v0.2 Experimental Unicode font encodings]
 %</dtxinfo>
 %
 %<*internalbatchfile>
@@ -80,15 +78,15 @@ This work consists of the file  \jobname.dtx and various derived files.
 % \errorcontextlines=999                ^^A% Show up all my mistakes
 % \GetFileInfo{euenc.dtx}
 %
-% \title{The experimental unicode `\EUx' encodings}
+% \title{The Experimental Unicode `\EUx' Encodings}
 % \author{Will Robertson}
 % \date{\filedate \qquad \fileversion}
 %
 % \maketitle
 %
 % \begin{abstract} 
-% This file documents some experimental unicode font encodings, initially
-% used for \XeTeX. Includes Latin Modern font definitions for version 1.6 of those fonts.
+% This file documents some experimental Unicode font encodings,
+% used for \XeTeX\ and Lua\TeX. Includes Latin Modern font definitions for version 1.6 of those fonts.
 % \end{abstract}
 %
 % \tableofcontents
@@ -101,20 +99,20 @@ This work consists of the file  \jobname.dtx and various derived files.
 % while remaining within \TeX's restrictions of 8-bit fonts.
 %
 % When \XeTeX\ came along, no work had seemingly been done on using
-% this infrastructure for unicode fonts. For one thing, the notion of a well-defined
-% font encoding — which neatly pigeonholes a font into a category of containing
-% a specific set of glyphs — doesn't work so well when designers have 
+% this infrastructure for Unicode fonts. For one thing, the notion of a well-defined
+% font encoding --- which neatly pigeonholes a font into a category of containing
+% a specific set of glyphs --- doesn't work so well when designers have 
 % an essentially unrestricted selection of glyphs they may add to their fonts.
 %
-% Both technical advantages of \LaTeX's font encodings — error checking, and
-% multilingual typesetting — were no longer relevant with \XeTeX, due to
+% Both technical advantages of \LaTeX's font encodings --- error checking, and
+% multilingual typesetting --- were no longer relevant with \XeTeX, due to
 % impracticality for the former and redundancy in the latter; \XeTeX's support
 % of OpenType fonts obviates the need for font switching by necessity when changing 
 % languages.
 %
 % Nonetheless, font encodings are tied inextricably into \LaTeX's font selection
 % mechanisms. For the first couple of years of \XeTeX's life, defined font families
-% were placed in the |U| encoding; appropriate, given the unicode initial, but 
+% were placed in the |U| encoding; appropriate, given the Unicode initial, but 
 % \emph{inappropriate} within the framework of \LaTeX\ itself. The |U| encoding
 % stands for `undefined', to be used for fonts that contain glyphs that are essentially
 % arbitrary; for example, a Dingbats font.
@@ -122,7 +120,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 % Since \XeLaTeX\ documents didn't interact with the `regular' world so much,
 % this overloading of the encoding didn't really matter in the long run. But eventually,
 % it became apparent that it would be appropriate to use font encodings to represent 
-% unicode subsets and/or different methods of font loading (to be addressed later).
+% Unicode subsets and/or different methods of font loading (to be addressed later).
 %
 % This document contains the first steps in this direction.
 %
@@ -130,16 +128,16 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % As with much of my \XeTeX\ work, nothing can be relied upon to last
 % unchanged into the future. This is an unfortunate fact that extensions to \TeX\
-% that deal with unicode ($>$16 bit fonts) are still many and varied (by this time next
-% year, there will be at least four\footnote{\XeTeX, Lua\TeX, Omega/Aleph, \ExTeX,
+% that deal with Unicode ($>$16 bit fonts) are still many and varied (at the time of
+% writing, there are at least four\footnote{\XeTeX, Lua\TeX, Omega/Aleph, \ExTeX,
 % if I've counted correctly}).
 %
 % \section{The \EU1 encoding}
 %
 % The \EU1 encoding represents the first attempt of providing a
-% standard \LaTeX\ encoding for unicode fonts.
+% standard \LaTeX\ encoding for Unicode fonts.
 % At present, it loads and defines nothing in terms of declaring text
-% glyphs and accents. That rôle is played for now by Ross Moore's \pkg{xunicode}
+% glyphs and accents. That r\^{o}le is played for now by Ross Moore's \pkg{xunicode}
 % package; in the future I hope some of that package will migrate here.
 %
 % Because we can assume that all current \TeX\ distributions will
@@ -147,8 +145,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 % this is selected as the default font. More details on this font later.
 %
 % I am now defining the convention that \EU1 encoded fonts have no
-% necessary subsets of unicode. Perhaps in the future this will be restricted
-% to fonts that support unicode accent characters.
+% necessary subsets of Unicode. Perhaps in the future this will be restricted
+% to fonts that support Unicode accent characters.
 %
 % Furthermore, no restrictions are made on the method used to load the font.
 % \XeTeX\ allows fonts of two types: system installed fonts (also accessible
@@ -158,7 +156,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %<*eu1>
 % \fi
 %    \begin{macrocode}
-\ProvidesFile{eu1enc.def}[2008/03/08 v0.1d Experimental unicode font encoding]
+\ProvidesFile{eu1enc.def}[2008/03/08 v0.1d Experimental Unicode font encoding]
 \DeclareFontEncoding{EU1}{}{}
 \DeclareErrorFont{EU1}{lmr}{m}{n}{10}
 \DeclareFontSubstitution{EU1}{lmr}{m}{n}
@@ -180,7 +178,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %<*eu2>
 % \fi
 %    \begin{macrocode}
-\ProvidesFile{eu2enc.def}[2009/01/06 v0.1 Experimental unicode font encoding]
+\ProvidesFile{eu2enc.def}[2009/01/06 v0.1 Experimental Unicode font encoding]
 \DeclareFontEncoding{EU2}{}{}
 \DeclareErrorFont{EU2}{lmr}{m}{n}{10}
 \DeclareFontSubstitution{EU2}{lmr}{m}{n}
@@ -199,12 +197,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % \subsection{Conversion scripts}
 % The |.fd| files are converted from the \enc{T1} encoding
-% with the following shell script. In order to generate
-% the Latin Modern \EU1 and \EU2 encoding font definitions, execute the following command:
-% \begin{verbatim}
-%   pdflatex --shell-escape euenc.dtx
-% \end{verbatim}
-% The sources that allow this generation are shown following.
+% with the following shell script.
 %
 % \subsubsection{Encoding conversion shell script}
 %
@@ -470,7 +463,19 @@ s/ec-lmvtko\([0-9]\+\)/lmmonoproplt\1-boldoblique/g
 
 \usepackage{booktabs,calc,color,fancyvrb,graphicx,ifthen,refstyle,url,varioref}
 \usepackage{metalogo}
-\usepackage[colorlinks]{hyperref}
+\usepackage{tgpagella,eulervm}
+\usepackage[scaled=1.1]{inconsolata}
+\usepackage[
+  bookmarks=true,
+  colorlinks=true,
+  linkcolor=niceblue,
+  urlcolor=niceblue,
+  citecolor=niceblue,
+  pdftitle={The Experimental Unicode 'EUx' Encodings},
+  pdfsubject={Experimental Unicode font encodings for Unicode TeX engines},
+  pdfauthor={Will Robertson},
+  pdfkeywords={xetex, xelatex, luatex, lualatex, unicode, fontenc}
+  ]{hyperref}
   
 \definecolor{niceblue}{rgb}{0.4,0.6,1.000}
 \newenvironment{example}
@@ -525,6 +530,15 @@ s/ec-lmvtko\([0-9]\+\)/lmmonoproplt\1-boldoblique/g
 \def\ie{\latin{i.e.}}
 \def\etc{\@ifnextchar.{\latin{etc}}{\latin{etc.}\@}}
 
+%% LOGOS, tuned for Pagella:
+\setlogokern{Te}{-0.12em}%
+\setlogokern{eT}{-0.12em}%
+\setlogokern{eX}{-0.12em}%
+\setlogokern{Xe}{-0.12em}%
+\setlogokern{La}{-0.3em}%
+\setlogokern{aT}{-0.12em}%
+\setlogokern{eL}{-0.1em}
+
 \def\MacOSX{Mac~OS~X}
 
 \DeclareRobustCommand\ExTeX{\textrm{\relax
@@ -534,6 +548,8 @@ s/ec-lmvtko\([0-9]\+\)/lmmonoproplt\1-boldoblique/g
 \def\EU#1{\enc{EU#1}}
 \def\EUx{\enc{EU$x$}} 
 
+%% (La)TeX font-related declarations:
+\linespread{1.05}      % Pagella needs more space between lines
 \frenchspacing         % Remove ugly extra space after punctuation
 
 %    \end{macrocode}
