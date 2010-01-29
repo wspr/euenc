@@ -33,7 +33,6 @@ TDS_ZIP = $(NAME).tds.zip
 ZIPS = $(CTAN_ZIP) $(TDS_ZIP)
 
 DO_PDFLATEX = pdflatex --interaction=batchmode $< >/dev/null
-DO_MAKEINDEX = makeindex -s gind.ist $(subst .dtx,,$<) >/dev/null 2>&1
 DO_SED = sh convert-lmfd.sh
 
 all: $(GENERATED)
@@ -44,8 +43,6 @@ tds: $(TDS_ZIP)
 world: all ctan
 
 $(COMPILED): $(DTX)
-	$(DO_PDFLATEX)
-	$(DO_MAKEINDEX)
 	$(DO_PDFLATEX)
 	$(DO_PDFLATEX)
 	$(DO_SED)
