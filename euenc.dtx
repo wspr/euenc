@@ -14,8 +14,13 @@
 % This work consists of the file  euenc.dtx and various derived files.
 %
 %<*dtxinfo>
-\ProvidesFile{euenc.dtx}[2010/01/28 v0.2 Experimental Unicode font encodings]
+\ProvidesFile{euenc.dtx}
 %</dtxinfo>
+%<eu1>\ProvidesFile{eu1enc.def}
+%<eu2>\ProvidesFile{eu2enc.def}
+%<*eu1|eu2>
+    [2010/01/28 v0.2 Experimental Unicode font encodings]
+%</eu1|eu2>
 %
 %<*internalbatchfile>
 \begingroup
@@ -153,7 +158,6 @@ This work consists of the file  \jobname.dtx and various derived files.
 %<*eu1>
 % \fi
 %    \begin{macrocode}
-\ProvidesFile{eu1enc.def}[2008/03/08 v0.1d Experimental Unicode font encoding]
 \DeclareFontEncoding{EU1}{}{}
 \DeclareErrorFont{EU1}{lmr}{m}{n}{10}
 \DeclareFontSubstitution{EU1}{lmr}{m}{n}
@@ -175,7 +179,6 @@ This work consists of the file  \jobname.dtx and various derived files.
 %<*eu2>
 % \fi
 %    \begin{macrocode}
-\ProvidesFile{eu2enc.def}[2010/01/06 v0.1 Experimental Unicode font encoding]
 \DeclareFontEncoding{EU2}{}{}
 \DeclareErrorFont{EU2}{lmr}{m}{n}{10}
 \DeclareFontSubstitution{EU2}{lmr}{m}{n}
