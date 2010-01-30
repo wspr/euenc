@@ -92,7 +92,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % \begin{abstract} 
 % This file documents some experimental Unicode font encodings,
-% used for \XeTeX\ and Lua\TeX. Includes Latin Modern font definitions for version 1.6 of those fonts.
+% used for \XeTeX\ and Lua\TeX. Includes Latin Modern font definitions for version 1.6 and later of those fonts.
 % \end{abstract}
 %
 % \tableofcontents
@@ -104,7 +104,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 % It is also a sensible system for typesetting multilingual documents
 % while remaining within \TeX's restrictions of 8-bit fonts.
 %
-% When \XeTeX\ came along, no work had seemingly been done on using
+% When \XeTeX\ came along, no work had been done on using
 % this infrastructure for Unicode fonts. For one thing, the notion of a well-defined
 % font encoding --- which neatly pigeonholes a font into a category of containing
 % a specific set of glyphs --- doesn't work so well when designers have 
@@ -113,8 +113,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 % Both technical advantages of \LaTeX's font encodings --- error checking, and
 % multilingual typesetting --- were no longer relevant with \XeTeX, due to
 % impracticality for the former and redundancy in the latter; \XeTeX's support
-% of OpenType fonts obviates the need for font switching by necessity when changing 
-% languages.
+% of OpenType fonts obviates the need for font switching (for glyph coverage only) by necessity when changing 
+% languages, although multiple fonts will often be used for stylistic purposes.
 %
 % Nonetheless, font encodings are tied inextricably into \LaTeX's font selection
 % mechanisms. For the first couple of years of \XeTeX's life, defined font families
@@ -126,17 +126,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 % Since \XeLaTeX\ documents didn't interact with the `regular' world so much,
 % this overloading of the encoding didn't really matter in the long run. But eventually,
 % it became apparent that it would be appropriate to use font encodings to represent 
-% Unicode subsets and/or different methods of font loading (to be addressed later).
-%
-% This document contains the first steps in this direction.
-%
-% \section{The \EUx\ encodings}
-%
-% As with much of my \XeTeX\ work, nothing can be relied upon to last
-% unchanged into the future. This is an unfortunate fact that extensions to \TeX\
-% that deal with Unicode ($>$16 bit fonts) are still many and varied (at the time of
-% writing, there are at least four\footnote{\XeTeX, Lua\TeX, Omega/Aleph, \ExTeX,
-% if I've counted correctly}).
+% Unicode subsets and/or different methods of font loading. With the advent of Lua\TeX,
+% this latter use has justified the approach originally taken here.
 %
 % \section{The \EU1 encoding}
 %
@@ -148,7 +139,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % Because we can assume that all current \TeX\ distributions will
 % contain the Latin Modern OpenType fonts (\path{fonts/opentype/public/lm}),
-% this is selected as the default font. More details on this font later.
+% these are selected as the default fonts. More details on this later.
 %
 % I am now defining the convention that \EU1 encoded fonts have no
 % necessary subsets of Unicode. Perhaps in the future this will be restricted
@@ -204,6 +195,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 % \subsection{Conversion scripts}
 % The |.fd| files are converted from the \enc{T1} encoding
 % with the following shell script.
+% Only the package maintainers need to be able to run this script and those following.
 %
 % \subsubsection{Encoding conversion shell script}
 %

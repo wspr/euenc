@@ -7,7 +7,7 @@ encoding is just a placeholder for now) but the EU1 (for XeTeX) and EU2
 (for LuaTeX) Latin Modern encoding is offered in order to access the
 OpenType versions of those fonts.
 
-This package is developped on <http://github.com/wspr/euenc>.
+This package is developed on <http://github.com/wspr/euenc>.
 
 
 Installation
@@ -71,4 +71,3 @@ this license is at: http://www.latex-project.org/lppl.txt
 
 This work is "maintained" (as per LPPL maintenance status) 
 by Will Robertson.
-"
