@@ -257,45 +257,45 @@ s/ec-lmb\([0-9]*\)/lmromandemi\1-regular/g
 s/ec-lmdunh\([0-9]*\)/lmromandunh\1-regular/g
 s/ec-lmduno\([0-9]*\)/lmromandunh\1-oblique/g
 
-s/ec-lmss\([0-9]\+\)/lmsans\1-regular/g
-s/ec-lmsso\([0-9]\+\)/lmsans\1-oblique/g
+s/ec-lmss\([0-9]\{1,\}\)/lmsans\1-regular/g
+s/ec-lmsso\([0-9]\{1,\}\)/lmsans\1-oblique/g
 
-s/ec-lmssdc\([0-9]\+\)/lmsansdemicond\1-regular/g
-s/ec-lmssdo\([0-9]\+\)/lmsansdemicond\1-oblique/g
+s/ec-lmssdc\([0-9]\{1,\}\)/lmsansdemicond\1-regular/g
+s/ec-lmssdo\([0-9]\{1,\}\)/lmsansdemicond\1-oblique/g
 
-s/ec-lmssbx\([0-9]\+\)/lmsans\1-bold/g
-s/ec-lmssbo\([0-9]\+\)/lmsans\1-boldoblique/g
+s/ec-lmssbx\([0-9]\{1,\}\)/lmsans\1-bold/g
+s/ec-lmssbo\([0-9]\{1,\}\)/lmsans\1-boldoblique/g
 
-s/ec-lmssq\([0-9]\+\)/lmsansquot\1-regular/g
-s/ec-lmssqo\([0-9]\+\)/lmsansquot\1-oblique/g
-s/ec-lmssqbx\([0-9]\+\)/lmsansquot\1-bold/g
-s/ec-lmssqbo\([0-9]\+\)/lmsansquot\1-boldoblique/g
+s/ec-lmssq\([0-9]\{1,\}\)/lmsansquot\1-regular/g
+s/ec-lmssqo\([0-9]\{1,\}\)/lmsansquot\1-oblique/g
+s/ec-lmssqbx\([0-9]\{1,\}\)/lmsansquot\1-bold/g
+s/ec-lmssqbo\([0-9]\{1,\}\)/lmsansquot\1-boldoblique/g
 
-s/ec-lmtt\([0-9]\+\)/lmmono\1-regular/g
-s/ec-lmtto\([0-9]\+\)/lmmonoslant\1-regular/g
-s/ec-lmtti\([0-9]\+\)/lmmono\1-italic/g
+s/ec-lmtt\([0-9]\{1,\}\)/lmmono\1-regular/g
+s/ec-lmtto\([0-9]\{1,\}\)/lmmonoslant\1-regular/g
+s/ec-lmtti\([0-9]\{1,\}\)/lmmono\1-italic/g
 
-s/ec-lmtcsc\([0-9]\+\)/lmmonocaps\1-regular/g
-s/ec-lmtcso\([0-9]\+\)/lmmonocaps\1-oblique/g
+s/ec-lmtcsc\([0-9]\{1,\}\)/lmmonocaps\1-regular/g
+s/ec-lmtcso\([0-9]\{1,\}\)/lmmonocaps\1-oblique/g
 
-s/ec-lmtl\([0-9]\+\)/lmmonolt\1-regular/g
-s/ec-lmtlo\([0-9]\+\)/lmmonolt\1-oblique/g
-s/ec-lmtk\([0-9]\+\)/lmmonolt\1-bold/g
-s/ec-lmtko\([0-9]\+\)/lmmonolt\1-boldoblique/g
+s/ec-lmtl\([0-9]\{1,\}\)/lmmonolt\1-regular/g
+s/ec-lmtlo\([0-9]\{1,\}\)/lmmonolt\1-oblique/g
+s/ec-lmtk\([0-9]\{1,\}\)/lmmonolt\1-bold/g
+s/ec-lmtko\([0-9]\{1,\}\)/lmmonolt\1-boldoblique/g
 
-s/ec-lmtlc\([0-9]\+\)/lmmonoltcond\1-regular/g
-s/ec-lmtlco\([0-9]\+\)/lmmonoltcond\1-oblique/g
+s/ec-lmtlc\([0-9]\{1,\}\)/lmmonoltcond\1-regular/g
+s/ec-lmtlco\([0-9]\{1,\}\)/lmmonoltcond\1-oblique/g
 
-s/ec-lmvtt\([0-9]\+\)/lmmonoprop\1-regular/g
-s/ec-lmvtto\([0-9]\+\)/lmmonoprop\1-oblique/g
+s/ec-lmvtt\([0-9]\{1,\}\)/lmmonoprop\1-regular/g
+s/ec-lmvtto\([0-9]\{1,\}\)/lmmonoprop\1-oblique/g
 
-s/ec-lmvtl\([0-9]\+\)/lmmonoproplt\1-regular/g
-s/ec-lmvtlo\([0-9]\+\)/lmmonoproplt\1-oblique/g
-s/ec-lmvtk\([0-9]\+\)/lmmonoproplt\1-bold/g
-s/ec-lmvtko\([0-9]\+\)/lmmonoproplt\1-boldoblique/g
+s/ec-lmvtl\([0-9]\{1,\}\)/lmmonoproplt\1-regular/g
+s/ec-lmvtlo\([0-9]\{1,\}\)/lmmonoproplt\1-oblique/g
+s/ec-lmvtk\([0-9]\{1,\}\)/lmmonoproplt\1-bold/g
+s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 
-%<eu1sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]*\)/\1"[\2]:mapping=tex-text"/g
-%<eu2sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]*\)/\1file:\2:mode=node;script=latn;+ccmp;+locl;+mark;+mkmk;+kern;+liga;+clig;+trep;+tlig;/g
+%<eu1sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]\{1,\}\)/\1"[\2]:mapping=tex-text"/g
+%<eu2sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]\{1,\}\)/\1file:\2:mode=node;script=latn;+ccmp;+locl;+mark;+mkmk;+kern;+liga;+clig;+trep;+tlig;/g
 %    \end{macrocode}
 % \changes{v0.1}{2007/01/18}{`ssdc' and `ssdo' were switched with the upright for some reason.}
 % \changes{v0.1d}{2008/03/08}{Missed typewriter italic somehow.}
