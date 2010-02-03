@@ -221,8 +221,7 @@ sed -f sed-eu2lm.sed `kpsewhich t1lmvtt.fd` > eu2lmvtt.fd
 sed -f sed-eu1lm.sed -e \
     's/:mapping=tex-text//g' `kpsewhich t1lmtt.fd` > eu1lmtt.fd
 sed -f sed-eu2lm.sed -e \
-    's/:mode=node;script=latn;.ccmp;.locl;.mark;.mkmk;.kern;.liga;.clig;.trep;.tlig;//g' \
-    `kpsewhich t1lmtt.fd` > eu2lmtt.fd
+    's/;.trep;.tlig;//g' `kpsewhich t1lmtt.fd` > eu2lmtt.fd
 %    \end{macrocode}
 % \iffalse
 %</lmscript>
@@ -295,7 +294,7 @@ s/ec-lmvtk\([0-9]\{1,\}\)/lmmonoproplt\1-bold/g
 s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 
 %<eu1sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]\{1,\}\)/\1"[\2]:mapping=tex-text"/g
-%<eu2sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]\{1,\}\)/\1file:\2:mode=node;script=latn;+ccmp;+locl;+mark;+mkmk;+kern;+liga;+clig;+trep;+tlig;/g
+%<eu2sedlm>s/\(>.[ ]*\)\(lm[a-z0-9\-]\{1,\}\)/\1file:\2:script=latn;+trep;+tlig;/g
 %    \end{macrocode}
 % \changes{v0.1}{2007/01/18}{`ssdc' and `ssdo' were switched with the upright for some reason.}
 % \changes{v0.1d}{2008/03/08}{Missed typewriter italic somehow.}
