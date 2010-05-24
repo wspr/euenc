@@ -13,7 +13,7 @@ GENERATED = $(COMPILED) $(UNPACKED) $(FDFILES)
 SOURCE = $(DTX) README Makefile
 
 # Files grouped by installation location
-RUNFILES = $(FDFILES)
+RUNFILES = $(FDFILES) euxunicode.sty
 DOCFILES = $(DOC) README $(UNPACKED)
 SRCFILES = $(DTX) Makefile
 
