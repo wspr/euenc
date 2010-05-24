@@ -3,14 +3,14 @@
 % Copyright 2006-2010 Will Robertson <wspr81@gmail.com>
 % Copyright 2009-2010 Elie Roux <elie.roux@telecom-bretagne.eu>
 % Copyright 2009-2010 Khaled Hosny <khaledhosny@eglug.org>
-% 
+%
 % Distributable under the LaTeX Project Public License,
 % version 1.3c or higher (your choice). The latest version of
 % this license is at: http://www.latex-project.org/lppl.txt
 %
-% This work is "maintained" (as per LPPL maintenance status) 
+% This work is "maintained" (as per LPPL maintenance status)
 % by Will Robertson.
-% 
+%
 % This work consists of the file  euenc.dtx and various derived files.
 %
 %<*dtxinfo>
@@ -18,9 +18,10 @@
 %</dtxinfo>
 %<eu1>\ProvidesFile{eu1enc.def}
 %<eu2>\ProvidesFile{eu2enc.def}
-%<*eu1|eu2>
+%<euxunicode>\ProvidesFile{euxunicode.sty}
+%<*eu1|eu2|euxunicode>
     [2010/03/26 v0.1g Experimental Unicode font encodings]
-%</eu1|eu2>
+%</eu1|eu2|euxunicode>
 %
 %<*internalbatchfile>
 \begingroup
@@ -47,7 +48,7 @@ Distributable under the LaTeX Project Public License,
 version 1.3c or higher (your choice). The latest version of
 this license is at: http://www.latex-project.org/lppl.txt
 
-This work is "maintained" (as per LPPL maintenance status) 
+This work is "maintained" (as per LPPL maintenance status)
 by Will Robertson.
 
 This work consists of the file  \jobname.dtx and various derived files.
@@ -312,31 +313,26 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 %
 % \section{euxunicode.sty file}
 %
-% \subsection{First checks}
+% This file is derived heavily from Ross Moore's \pkg{xunicode} package.
+% We have removed the \XeTeX-specific components and removed some of the
+% more esoteric control sequences from its repertoire.
+%
+% For backwards compatibility, we have it only loaded under Lua\TeX.
 %
 % \iffalse
 %<*euxunicode>
 % \fi
 %
+% \subsection{First checks}
+%
+% Because \pkg{euxunicode} is part of a font encoding, it may be theoretically
+% loaded at any time, not just in the document preamble. (Of course, this
+% is unlikely because \pkg{fontspec} will usually be setting up the font
+% encoding anyway.)
+%
 %    \begin{macrocode}
-
 \csname ifeuxunicodeloaded\endcsname
 \let\ifeuxunicodeloaded\endinput
-
-\ProvidesFile{euxunicode.sty}[2010/03/26 v0.93 provides access to
- latin accents and many other characters in Unicode lower plane]
-
-%    \end{macrocode}
-% This package is designed to work with \TeX\ engines that directly
-% process UTF-8 input and use Unicode and OpenType fonts.
-%
-% At the time of writing, \XeTeX\ and Lua\TeX\ are the only known engines
-% of this kind.
-%
-% When more engines become available, the following test should be
-% altered.
-%
-%    \begin{macrocode}
 
 \def\notUnicodeEngine{%
   \@latex@error{*** this package currently works only with XeTeX or LuaTeX ***^^J
