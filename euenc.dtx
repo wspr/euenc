@@ -134,8 +134,14 @@ This work consists of the file  \jobname.dtx and various derived files.
 % Unicode subsets and/or different methods of font loading. With the advent of Lua\TeX,
 % this latter use has justified the approach originally taken here.
 %
-% This package also includes a part of the \textsf{xunicode} package, adapted for LuaTeX,
-% in which the TIPA macros are removed.
+% This package now also includes most of the \textsf{xunicode} package
+% when unicode fonts are used under Lua\TeX.
+% (For \XeTeX, \pkg{xunicode} should still be loaded explicitly unless you
+% are using the \pkg{xltxtra} package.)
+% The justification here is that the \pkg{xunicode} package essentially
+% defines and configures a unicode font encoding for \LaTeX, which is
+% therefore appropriate to have as part of the standard encoding definitions
+% for unicode.
 %
 % \section{The \EU1 encoding}
 %
@@ -144,6 +150,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 % At present, it loads and defines nothing in terms of declaring text
 % glyphs and accents. That r\^{o}le is played for now by Ross Moore's \pkg{xunicode}
 % package; in the future I hope some of that package will migrate here.
+% (And indeed, some of it has; see the \EU2 encoding below.)
 %
 % Because we can assume that all current \TeX\ distributions will
 % contain the Latin Modern OpenType fonts (\path{fonts/opentype/public/lm}),
@@ -178,6 +185,9 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % The \EU2 encoding is to be used with Lua\TeX, it is essentially the same as
 % \EU1, the actual difference is in the font definition files.
+%
+% We also load our subset of the \pkg{xunicode} package.
+%
 % \iffalse
 %<*eu2>
 % \fi
@@ -201,7 +211,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % \section{The Latin Modern OpenType fonts}
 %
-% Version 0.2 of \pkg{euenc} supports version~1.6 of the LM fonts, released in October 2009.
+% Version 0.1g of \pkg{euenc} supports version~1.6 of the LM fonts, released in October 2009.
 %
 % \subsection{Conversion scripts}
 % The |.fd| files are converted from the \enc{T1} encoding
@@ -236,7 +246,7 @@ sed -f sed-eu2lm.sed -e \
 % \fi
 %
 % \subsubsection{Encoding conversion \texttt{sed} scripts}
-% The shell script above clearly requires the following |sed| scripts.
+% The shell script above requires the following |sed| scripts.
 %
 % \paragraph{Sed scripts}
 % \iffalse
@@ -317,7 +327,8 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % We have removed the \XeTeX-specific components and removed some of the
 % more esoteric control sequences from its repertoire.
 %
-% For backwards compatibility, we have it only loaded under Lua\TeX.
+% For backwards compatibility, we load it only under Lua\TeX.
+% (I.e., with the |EU2| encoding.)
 %
 % \iffalse
 %<*euxunicode>
@@ -329,11 +340,13 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % loaded at any time, not just in the document preamble. (Of course, this
 % is unlikely because \pkg{fontspec} will usually be setting up the font
 % encoding anyway.)
-%
 %    \begin{macrocode}
 \csname ifeuxunicodeloaded\endcsname
 \let\ifeuxunicodeloaded\endinput
-
+%    \end{macrocode}
+% Now check for \XeTeX\ or Lua\TeX\ use:
+% (again, just as unlikely this will fail)
+%    \begin{macrocode}
 \def\notUnicodeEngine{%
   \@latex@error{*** this package currently works only with XeTeX or LuaTeX ***^^J
    You are not using XeTeX or LuaTeX, so we are exiting cleanly!^^J
@@ -348,7 +361,6 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 \else
   \def\@Engine{XeTeX}
 \fi
-
 %    \end{macrocode}
 % The single biggest mistake made by novice \XeTeX\ users is
 % to declare wrong encodings, using the {(lua)inputenc} package.
@@ -358,13 +370,11 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % We also deprecate xunicode.
 %
 %    \begin{macrocode}
-
 \def\@TestForWongPackage{%
  \@ifpackageloaded{inputenc}{\@dontuse@inputenc}{}%
  \@ifpackageloaded{luainputenc}{\@dontuse@inputenc}{}%
  \@ifpackageloaded{xunicode}{\@dontuse@xunicode}{}%
 }
-
 \def\@dontuse@inputenc{%
   \typeout{*** You should *not* be loading inputenc nor luainputenc}%
   \typeout{*** with the \UTFencname\space encoding. Your engine}%
@@ -372,12 +382,10 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
   \typeout{*** Some features of other encodings may conflict,
  resulting in poor output.}%
 }
-
 \def\@dontuse@xunicode{%
   \typeout{*** xunicode is deprecated, please use only the fontspec package,}%
   \typeout{*** it will automatically load the relevant packages.}%
 }
-
 \def\@cleanupaftertest{%
  \let\@TestForWongPackage\relax
  \let\@dontuse@inputenc\relax
@@ -386,7 +394,6 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 \@TestForWongPackage
 \AtBeginDocument{\@TestForWongPackage}
 \AtBeginDocument{\@cleanupaftertest}
-
 %    \end{macrocode}
 %
 % \subsection{Macro definitions}
@@ -394,14 +401,11 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % \begin{macro}{\DeclareUTFcharacter}
 % Use |\DeclareUTFcharacter| to assign a cs-name to
 % access a Unicode code-point.
-%
 %    \begin{macrocode}
-
 \newcommand{\DeclareUTFcharacter}[3][\UTFencname]{%
   \let\add@flag\@ne % ==> add support in this encoding
   \check@hexcom@digits #2@@@@@!@{#1}{#2}{#3}%
 }
-
 %    \end{macrocode}
 % \end{macro}
 %
@@ -409,18 +413,14 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % Use |\UndeclareUTFcharacter| to cancel a declaration
 % when the appropriate code-point is not supported in the
 % desired text-font.
-%
 %    \begin{macrocode}
-
 \newcommand{\UndeclareUTFcharacter}[3][\UTFencname]{%
   \let\add@flag\z@ % ==> remove support in this encoding
   \check@hexcom@digits #2@@@@@!@{#1}{#2}{#3}%
 }
-
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-
 \def\check@hexcom@digits#1#2@!@#3#4#5{%
  \ifx x#1\relax
   \check@hexcom@digits@#2@!@{#3}{#4}{#5}%
@@ -428,48 +428,37 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
   \UTFacc@warning@{code #4 for #3-\string#5 fails to start with 'x'}%
  \fi
 }
-
 %    \end{macrocode}
-%
 % \begin{macro}{\DeclareUTFcomposite}
 % Use |\DeclareUTFcomposite| to assign a cs-name to access
 % accents or composite characters via Unicode code-points,
 % or the Unicode "Composing Character" mechanism.
-%
 %    \begin{macrocode}
-
 \newcommand{\DeclareUTFcomposite}[4][\UTFencname]{{%
   \let\add@flag\@ne % ==> add support in this encoding
   \check@hex@digits #2@@@@@!@{#1}{#2}{#3}{#4}%
 }}
-
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-
 \newcommand{\DeclareUTFmulticomposite}[4][\UTFencname]{{%
   \let\add@flag\@ne % ==> add support in this encoding
   \check@hex@digits #2@@@@@!@{#1}{#2}{#3}{#4}%
 }}
-
 %    \end{macrocode}
 %
 % \begin{macro}{\UndeclareUTFcomposite}
 % Use |\UndeclareUTFcomposite| to cancel a declaration
 % when the appropriate code-point is not supported in the
 % desired text-font.
-%
 %    \begin{macrocode}
-
 \newcommand{\UndeclareUTFcomposite}[4][\UTFencname]{{%
   \let\add@flag\z@ % ==> remove support in this encoding
   \check@hex@digits #2@@@@@!@{#1}{#2}{#3}{#4}%
 }}
-
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-
 \def\check@hex@digits#1#2@!@#3#4#5#6{%
  \ifx x#1\relax
    \check@hex@digits@#2@!@{#3}{#4}{#5}{#6}%
@@ -477,14 +466,10 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
   \UTFacc@warning@{code #4 for #3-\string#5#6 fails to start with 'x'}%
  \fi
 }
-
 \def\UTF@ignore#1{\iffalse}
 \def\UTF@doit#1{\iftrue}
-
 %    \end{macrocode}
-%
 % These next macros need to have |"| with correct catcode.
-%
 %    \begin{macrocode}
 {\catcode`\"=12
 %
@@ -580,9 +565,7 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
   \fi}%
  \fi
 }
-
 %    \end{macrocode}
-%
 % \begin{macro}{\DeclareEncodedCompositeCharacter}
 % new command:  |\DeclareEncodedCompositeCharacter|\[3\]\\
 % \#1 = encoding\\
@@ -590,19 +573,15 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % \#3 = position of combining glyph in Unicode\\
 % \#4 = bare accent position, in Unicode\\
 % \#\#1 = slot for the accented letter
-%
 %    \begin{macrocode}
-
 \newcommand{\DeclareEncodedCompositeCharacter}[4]{%
   \expandafter\def\csname #1\string#2\endcsname##1{%
     \expandafter\@text@composite \csname #1\string#2\endcsname##1\@empty
     \@text@composite{\add@encoded@accent{#3}{##1}{#4}}}%
 }
-
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-
 \newcommand{\DeclareEncodedCompositeAccents}[4]{%
   \expandafter\def\csname #1\string#2\endcsname##1{%
     \expandafter\@text@composite \csname #1\string#2\endcsname##1\@empty
@@ -612,13 +591,9 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 \let\add@encoded@accents\add@UTF@accents
 %\let\add@encoded@accent\add@set@accentCOMP
 %\let\add@encoded@accent\add@set@accentMOD
-
 %    \end{macrocode}
-%
 % \subsection{Basic definitions}
-%
 %    \begin{macrocode}
-
 \DeclareEncodedCompositeCharacter{\UTFencname}{\`}{0300}{02CB}  % Combining grave accent
 \@ifundefined{capitalgrave}{\DeclareTextAccent{\capitalgrave}{OT1}{999}}{}
 \DeclareEncodedCompositeCharacter{\UTFencname}{\capitalgrave}{0300}{02CB}  % textcomp grave accent
@@ -852,13 +827,9 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 %\DeclareEncodedCompositeCharacter{\UTFencname}{\?}{036D}{036D}  % Combining latin small letter t
 %\DeclareEncodedCompositeCharacter{\UTFencname}{\?}{036E}{036E}  % Combining latin small letter v
 %\DeclareEncodedCompositeCharacter{\UTFencname}{\?}{036F}{036F}  % Combining latin small letter x
-
 %    \end{macrocode}
-%
 % \subsection{Missing IPA accenting macros}
-%
 %    \begin{macrocode}
-
 %\DeclareEncodedCompositeCharacter{\UTFencname}{\partvoiceless}{????}  % Combining (o) below
 %\DeclareEncodedCompositeCharacter{\UTFencname}{\inipartvoiceless}{????}  % Combining (o  below
 %\DeclareEncodedCompositeCharacter{\UTFencname}{\finpartvoiceless}{????}  % Combining  o) below
@@ -940,26 +911,17 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 
 \DeclareTextAccent{\textmiddledot}{OT1}{999}
 \DeclareEncodedCompositeCharacter{\UTFencname}{\textmiddledot}{05BC}{05BC}
-
 %    \end{macrocode}
-%
 % \subsection{Rare definitions}
-%
 % Not many fonts support these code-points yet.
-%
 %    \begin{macrocode}
-
 \DeclareUTFcharacter[\UTFencname]{x3008}{\textlangle}
 \DeclareUTFcharacter[\UTFencname]{x3009}{\textrangle}
 \DeclareUTFcharacter[\UTFencname]{x301A}{\textlbrackdbl}
 \DeclareUTFcharacter[\UTFencname]{x301B}{\textrbrackdbl}
-
 %    \end{macrocode}
-%
 % \subsubsection{Old-style numbers}
-%
 %    \begin{macrocode}
-
 \DeclareUTFcharacter[\UTFencname]{xFF10}{\textzerooldstyle}
 \DeclareUTFcharacter[\UTFencname]{xFF11}{\textoneoldstyle}
 \DeclareUTFcharacter[\UTFencname]{xFF12}{\texttwooldstyle}
@@ -970,15 +932,12 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 \DeclareUTFcharacter[\UTFencname]{xFF17}{\textsevenoldstyle}
 \DeclareUTFcharacter[\UTFencname]{xFF18}{\texteightoldstyle}
 \DeclareUTFcharacter[\UTFencname]{xFF19}{\textnineoldstyle}
-
 %    \end{macrocode}
-%
 % \subsubsection{Circled letters and small numbers}
-%
 %    \begin{macrocode}
-
 \DeclareEncodedCompositeCharacter{\UTFencname}{\textcircled}{20DD}{25EF}
-
+%    \end{macrocode}
+%    \begin{macrocode}
 \DeclareUTFcomposite[\UTFencname]{x2460}{\textcircled}{1}
 \DeclareUTFcomposite[\UTFencname]{x2461}{\textcircled}{2}
 \DeclareUTFcomposite[\UTFencname]{x2462}{\textcircled}{3}
@@ -999,7 +958,6 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 \DeclareUTFcomposite[\UTFencname]{x2471}{\textcircled}{18}
 \DeclareUTFcomposite[\UTFencname]{x2472}{\textcircled}{19}
 \DeclareUTFcomposite[\UTFencname]{x2473}{\textcircled}{20}
-
 
 \DeclareUTFcomposite[\UTFencname]{x24B6}{\textcircled}{A}
 \DeclareUTFcomposite[\UTFencname]{x24B7}{\textcircled}{B}
@@ -1091,7 +1049,7 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 %</euxunicode>
 % \fi
 %
-% \subsection{Latin Modern test file}
+% \section{Latin Modern test file}
 % Adapted and improved from my Prac\TeX\ Journal article on the Latin Modern fonts.
 %
 % \iffalse
