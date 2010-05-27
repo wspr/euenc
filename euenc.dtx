@@ -20,7 +20,7 @@
 %<eu2>\ProvidesFile{eu2enc.def}
 %<euxunicode>\ProvidesFile{euxunicode.sty}
 %<*eu1|eu2|euxunicode>
-    [2010/03/26 v0.1g Experimental Unicode font encodings]
+    [2010/05/27 v0.1g Experimental Unicode font encodings]
 %</eu1|eu2|euxunicode>
 %
 %<*internalbatchfile>
@@ -35,6 +35,9 @@
   The EUENC bundle
   Will Robertson, Elie Roux, Khaled Hosny
 
+  EUXUNICODE is based on the XUNICODE package version 0.91
+  dated 2008/02/08 and copyright 2004-2007 Ross Moore.
+  
   License information appended.
 
 \endpreamble
@@ -57,8 +60,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 \askforoverwritefalse
 \generate{\file{eu1enc.def}{\from{\jobname.dtx}{eu1}}}
 \generate{\file{eu2enc.def}{\from{\jobname.dtx}{eu2}}}
-\generate{\file{euxunicode.sty}{\from{\jobname.dtx}{euxunicode}}}
 \generate{\file{test-euxlm.ltx}{\from{\jobname.dtx}{lmtest}}}
+\generate{\file{euxunicode.sty}{\from{\jobname.dtx}{euxunicode}}}
 %</batchfile>
 %<batchfile>\endbatchfile
 %<*internalbatchfile>
@@ -186,8 +189,6 @@ This work consists of the file  \jobname.dtx and various derived files.
 % The \EU2 encoding is to be used with Lua\TeX, it is essentially the same as
 % \EU1, the actual difference is in the font definition files.
 %
-% We also load our subset of the \pkg{xunicode} package.
-%
 % \iffalse
 %<*eu2>
 % \fi
@@ -200,7 +201,7 @@ This work consists of the file  \jobname.dtx and various derived files.
 %    \begin{macrocode}
 \g@addto@macro\nfss@catcodes{\@makeother:}
 %    \end{macrocode}
-% We automatically load euxunicode:
+% We also load \pkg{euxunicode},\footnote{For backwards compatibility reasons, we do not do the same under the \EU1 encoding.} our subset of Ross Moore's \pkg{xunicode} package, which provides control sequences for accessing a wide range of unicode symbols and (especially) accents.
 %    \begin{macrocode}
 \providecommand{\UTFencname}{EU2}
 \input euxunicode.sty
@@ -324,6 +325,7 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % \section{euxunicode.sty file}
 %
 % This file is derived heavily from Ross Moore's \pkg{xunicode} package.
+% Most, if not all, of the code comments are his.
 % We have removed the \XeTeX-specific components and removed some of the
 % more esoteric control sequences from its repertoire.
 %
@@ -340,6 +342,8 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % loaded at any time, not just in the document preamble. (Of course, this
 % is unlikely because \pkg{fontspec} will usually be setting up the font
 % encoding anyway.)
+%
+% For this reason we do not load it as a regular package but use \cs{input} and \cs{endinput} to ensure it is only loaded once.
 %    \begin{macrocode}
 \csname ifeuxunicodeloaded\endcsname
 \let\ifeuxunicodeloaded\endinput
@@ -367,7 +371,10 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 % While not fatal, this can cause bad output, which they then
 % incorrectly attribute to \XeTeX\ or Lua\TeX .
 % So here is a test for this error, which posts warning messages.
-% We also deprecate xunicode.
+%
+% We also deprecate \pkg{xunicode}, but there is no way by default
+% that that code path will ever run (this package is only loaded under
+% Lua\TeX\ for now, and \pkg{xunicode} can only be loaded under \XeTeX).
 %
 %    \begin{macrocode}
 \def\@TestForWongPackage{%
@@ -567,7 +574,7 @@ s/ec-lmvtko\([0-9]\{1,\}\)/lmmonoproplt\1-boldoblique/g
 }
 %    \end{macrocode}
 % \begin{macro}{\DeclareEncodedCompositeCharacter}
-% new command:  |\DeclareEncodedCompositeCharacter|\[3\]\\
+% |\DeclareEncodedCompositeCharacter|\\
 % \#1 = encoding\\
 % \#2 = accent-macro in TeX\\
 % \#3 = position of combining glyph in Unicode\\
