@@ -14,7 +14,7 @@ SOURCE = $(DTX) README Makefile
 
 # Files grouped by installation location
 RUNFILES = $(FDFILES) euxunicode.sty
-DOCFILES = $(DOC) README $(UNPACKED)
+DOCFILES = $(DOC) README test-euxlm.ltx
 SRCFILES = $(DTX) Makefile
 
 # The following definitions should be equivalent
