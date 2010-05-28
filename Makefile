@@ -5,11 +5,12 @@ DOC = $(NAME).pdf
 DTX = $(NAME).dtx
 
 # Files grouped by generation mode
+SCRIPTS = sed-eu1lm.sed  sed-eu2lm.sed  convert-lmfd.sh
 FDFILES = eu1lmdh.fd eu1lmr.fd eu1lmss.fd eu1lmssq.fd eu1lmtt.fd eu1lmvtt.fd\
 eu2lmdh.fd eu2lmr.fd eu2lmss.fd eu2lmssq.fd eu2lmtt.fd eu2lmvtt.fd eu1enc.def eu2enc.def
 COMPILED = $(DOC)
 UNPACKED = test-euxlm.ltx euxunicode.sty
-GENERATED = $(COMPILED) $(UNPACKED) $(FDFILES)
+GENERATED = $(COMPILED) $(UNPACKED) $(FDFILES) $(SCRIPTS) euenc-style.sty
 SOURCE = $(DTX) README Makefile
 
 # Files grouped by installation location
@@ -83,8 +84,7 @@ manifest:
 	@echo "Derived files:"
 	@for f in $(GENERATED); do echo $$f; done
 
-clean: 
-	@$(RM) -- *.log *.aux *.toc *.idx *.ind *.ilg *.out *.glo *.ins
 
-mrproper: clean
+clean:
+	@$(RM) -- *.log *.aux *.toc *.idx *.ind *.ilg *.out *.glo *.ins
 	@$(RM) -- $(GENERATED) $(ZIPS)
