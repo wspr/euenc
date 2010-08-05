@@ -9,12 +9,12 @@ SCRIPTS = sed-eu1lm.sed  sed-eu2lm.sed  convert-lmfd.sh
 FDFILES = eu1lmdh.fd eu1lmr.fd eu1lmss.fd eu1lmssq.fd eu1lmtt.fd eu1lmvtt.fd\
 eu2lmdh.fd eu2lmr.fd eu2lmss.fd eu2lmssq.fd eu2lmtt.fd eu2lmvtt.fd eu1enc.def eu2enc.def
 COMPILED = $(DOC)
-UNPACKED = test-euxlm.ltx euxunicode.sty
+UNPACKED = test-euxlm.ltx
 GENERATED = $(COMPILED) $(UNPACKED) $(FDFILES) $(SCRIPTS) euenc-style.sty
 SOURCE = $(DTX) README Makefile
 
 # Files grouped by installation location
-RUNFILES = $(FDFILES) euxunicode.sty
+RUNFILES = $(FDFILES)
 DOCFILES = $(DOC) README test-euxlm.ltx
 SRCFILES = $(DTX) Makefile
 
