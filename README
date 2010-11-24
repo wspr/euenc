@@ -10,14 +10,12 @@ unless you wish to manually perform font installation and loading,
 you will generally not need to use euenc directly.
 
 The euenc package provides the EU1 encoding for unicode fonts
-in XeTeX, and the EU2 encoding for unicode fonts in LuaTeX.
+in XeTeX, and the EU2 encoding for unicode fonts in LuaTeX. Currently, these
+are essentially the same; the only difference is in the font definition files.
 
-No macro support is offered under XeTeX, for which Ross Moore's
-xunicode package should be used to provide LaTeX support for
-access to unicode symbols and accents.
-
-For LuaTeX, we have taken a subset of xunicode and incorporated
-it into the EU2 encoding, so no extra packages need to be loaded.
+No macro (LICR) support is offered . The xunicode package should be used to
+provide LaTeX support for access to unicode symbols and accents using LICR and
+the usual user macros.
 
 Please see the documentation euenc.pdf for further information.
 

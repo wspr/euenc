@@ -139,7 +139,8 @@ This work consists of the file  \jobname.dtx and various derived files.
 % standard \LaTeX\ encoding for Unicode fonts.
 % At present, it loads and defines nothing in terms of declaring text
 % glyphs and accents. That r\^{o}le is played for now by Ross Moore's \pkg{xunicode}
-% package; in the future I hope some of that package will migrate here.
+% package; you need to define |\UTFencname| to |EU1| before loading this
+% package if you want LICR support for the \EU1 encoding.
 %
 % Because we can assume that all current \TeX\ distributions will
 % contain the Latin Modern OpenType fonts (\path{fonts/opentype/public/lm}),
@@ -174,6 +175,12 @@ This work consists of the file  \jobname.dtx and various derived files.
 %
 % The \EU2 encoding is to be used with Lua\TeX. It is the same as
 % \EU1 for now; the actual difference is in the font definition files.
+%
+% As for \EU1, no macro (LICR) support is provided; you should load
+% \pkg{xunicode} after defining |\UTFencname| to |EU2| if you want it.
+% Currently, \pkg{xunicode} checks for \XeTeX\ only, so loading it with
+% Lua\TeX\ is a bit tricky; see the implementation of \pkg{fontspec} for an
+% example.
 %
 % \iffalse
 %<*eu2>
