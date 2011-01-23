@@ -52,7 +52,6 @@ Source files:
 
 Derived files:
         euenc.pdf               documentation
-        euxunicode.sty          xunicode for LuaTeX, automatically loaded by EU2
         test-euxlm.ltx          LaTeX example document
         convert-lmfd.sh         Shell script to generate the eu*.fd files
         sed-eu2lmr.sed          Sed script to generate the eu2*.fr files
